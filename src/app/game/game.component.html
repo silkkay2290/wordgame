@@ -1,0 +1,54 @@
+<p>Instructions : {{ instruction }}</p>
+<p>Current Answer: {{ answerForm.value.answer}}</p>
+<p>JSON : {{ answer | json}}</p>
+<form #answerForm="ngForm">
+    <div class="mb-3">
+        <button class="btn btn-success" [ngClass]="'btn btn-primary btn-lg'"  (click)="submitAnswertoBackend()">Start Game/New Game</button>
+    </div>
+    <div class="'mb-3">
+        <label for="answer" class="form-label">Answer</label>
+        <input 
+        [(ngModel)]="answer.userinput"answer.type="text" class="form-control" name="answer">
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-success" [ngClass]="'btn btn-primary btn-lg'"(click)="checkAnswer()">Submit</button>
+    </div>
+</form>
+<ng-container *ngIf="isTooLong === true">
+    <h2 [ngStyle]="{'color': 'red'}">Too Long</h2>
+</ng-container>
+<ng-container *ngIf="isTooShort === true">
+    <h2 [ngStyle]="{'color': 'red'}">Too Short</h2>
+</ng-container>
+
+<ng-container *ngIf="isWord === true">
+    <h2 [ngStyle]="{'color': 'green'}">Correct</h2>
+</ng-container>
+
+<p> {{ submitString }}</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Answers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let a of answerList ">
+            <td>{{a.userinput}}</td>
+        </tr>
+    </tbody>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Common Letters</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let a of commonChars ">
+            <td>{{a}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>Response from PHP : {{response | json}}</p>
